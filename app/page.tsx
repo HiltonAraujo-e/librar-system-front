@@ -1,101 +1,184 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
+"use client";
+import React, { useEffect, useState } from 'react';
+import { Book, Search, User, Menu, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
+const LibraryHomePage = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useRouter();
+
+  const bookImages = [
+    'https://covers.openlibrary.org/b/id/7984916-L.jpg',
+    'https://covers.openlibrary.org/b/id/8225260-L.jpg',
+    'https://covers.openlibrary.org/b/id/7598816-L.jpg',
+    'https://covers.openlibrary.org/b/id/7945321-L.jpg',
+  ];
+
+  const featuredBooks = [
+    {
+      id: 1,
+      title: "O Senhor dos Anéis",
+      author: "J.R.R. Tolkien",
+      image: "/images/book1.jpg",
+      description: "Uma épica jornada de fantasia"
+    },
+    {
+      id: 2,
+      title: "1984",
+      author: "George Orwell",
+      image: "https://covers.openlibrary.org/b/id/7984916-L.jpg",
+      description: "Um clássico distópico sobre controle social"
+    },
+    {
+      id: 3,
+      title: "Harry Potter",
+      author: "J.K. Rowling",
+      image: "https://covers.openlibrary.org/b/id/7945321-L.jpg",
+      description: "A magia da juventude e amizade"
+    }
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % bookImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Responsive Navigation */}
+      <header className="sticky top-0 z-50 bg-gradient-to-r from-indigo-700 to-purple-800 text-white shadow-lg">
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center space-x-3">
+            <Book className="w-8 h-8" />
+            <span className="text-2xl font-bold">Biblioteca</span>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="focus:outline-none"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-6">
+            <a href="#catalog" className="hover:text-indigo-200 transition flex items-center">
+              <Book className="mr-2 w-4 h-4" /> Catálogo
+            </a>
+            <a href="#about" className="hover:text-indigo-200 transition flex items-center">
+              Sobre
+            </a>
+            <a href="#contact" className="hover:text-indigo-200 transition flex items-center">
+              Contato
+            </a>
+            <button className="bg-white text-indigo-700 px-4 py-2 rounded-full hover:bg-gray-300 transition flex items-center"
+              onClick={() => navigate.push('/auth/login')}
+            >
+              <User className="mr-2 w-4 h-4" /> Login
+            </button>
+          </nav>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-indigo-700 absolute w-full">
+            <nav className="flex flex-col p-4 space-y-3">
+              <a href="#catalog" className="py-2 border-b border-indigo-600">Catálogo</a>
+              <a href="#about" className="py-2 border-b border-indigo-600">Sobre</a>
+              <a href="#contact" className="py-2 border-b border-indigo-600">Contato</a>
+              <button className="bg-white text-indigo-700 px-4 py-2 rounded-full text-center hover:bg-gray-300 transition flex items-center"
+                onClick={() => navigate.push('/auth/login')}
+              >
+                <User className="mr-2 w-4 h-4" /> Login
+              </button>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      {/* Hero Section with Search */}
+      <section className="relative h-[500px] bg-cover bg-center flex items-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center filter brightness-50"
+          style={{
+            backgroundImage: `url(${bookImages[currentIndex]})`,
+            transition: 'background-image 1s ease-in-out',
+          }}
+        ></div>
+
+        <div className="container mx-auto px-4 z-10 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Descubra Seu Próximo Livro
+          </h1>
+
+          <form className="max-w-xl mx-auto flex">
+            <input
+              type="text"
+              placeholder="Busque por título, autor ou gênero"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-3 rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <button
+              type="submit"
+              className="bg-indigo-600 text-white px-6 py-3 rounded-r-lg hover:bg-indigo-700 transition"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section className="container mx-auto px-4 py-12">
+        <h2 className="text-3xl font-semibold text-center mb-8">Livros em Destaque</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {featuredBooks.map((book) => (
+            <div
+              key={book.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:scale-105 hover:shadow-xl"
+            >
+              <img
+                src={book.image}
+                alt={book.title}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2">{book.title}</h3>
+                <p className="text-gray-600 mb-4">{book.author}</p>
+                <p className="text-sm text-gray-500">{book.description}</p>
+                <button className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-full hover:bg-indigo-700 transition">
+                  Detalhes do Livro
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8 mt-auto">
+        <div className="container mx-auto px-4 text-center">
+          <p className="mb-4">&copy; 2024 Biblioteca - Todos os direitos reservados</p>
+          <div className="flex justify-center space-x-6">
+            <a href="#facebook" className="hover:text-indigo-300 transition">Facebook</a>
+            <a href="#twitter" className="hover:text-indigo-300 transition">Twitter</a>
+            <a href="#instagram" className="hover:text-indigo-300 transition">Instagram</a>
+          </div>
+        </div>
       </footer>
     </div>
   );
-}
+};
+
+export default LibraryHomePage;
