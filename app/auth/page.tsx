@@ -1,26 +1,45 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from 'react';
-import { User, Lock, Mail, EyeOff, Eye } from 'lucide-react';
+import React, { useState } from "react";
+import { User, Lock, Mail, EyeOff, Eye } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
     const [isLogin, setIsLogin] = useState(true);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [name, setName] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const router = useRouter();
 
-    const handleSubmit = (e: any) => {
+    const authenticateUser = async (email: string, password: string) => {
+        if (email === "admin@example.com" && password === "admin123") {
+            return { role: "admin" };
+        } else if (email === "user@example.com" && password === "user123") {
+            return { role: "user" };
+        }
+        return null;
+    };
+
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
+
         if (isLogin) {
-            console.log('Login attempt:', email, password);
-        } else {
-            if (password !== confirmPassword) {
-                alert('Passwords do not match');
+            const user = await authenticateUser(email, password);
+            if (user) {
+                if (user.role === "admin") {
+                    router.push("/library/admin");
+                } else {
+                    router.push("/library/user");
+                }
+            } else {
                 return;
             }
-            console.log('Registration attempt:', name, email, password);
+        } else {
+            if (password !== confirmPassword) {
+                return;
+            }
         }
     };
 
@@ -30,12 +49,12 @@ const LoginPage = () => {
                 <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
                     <div className="bg-gradient-to-r from-indigo-700 to-purple-800 text-white p-6 text-center">
                         <h2 className="text-3xl font-bold">
-                            {isLogin ? 'Bem-vindo de Volta' : 'Crie Sua Conta'}
+                            {isLogin ? "Bem-vindo de Volta" : "Crie Sua Conta"}
                         </h2>
                         <p className="mt-2 text-indigo-100">
                             {isLogin
-                                ? 'Faça login para acessar sua biblioteca'
-                                : 'Registre-se para começar sua jornada'}
+                                ? "Faça login para acessar sua biblioteca"
+                                : "Registre-se para começar sua jornada"}
                         </p>
                     </div>
 
@@ -131,18 +150,18 @@ const LoginPage = () => {
                             type="submit"
                             className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition duration-300"
                         >
-                            {isLogin ? 'Entrar' : 'Cadastrar'}
+                            {isLogin ? "Entrar" : "Cadastrar"}
                         </button>
 
                         <div className="text-center mt-4">
                             <p className="text-gray-600">
-                                {isLogin ? 'Não tem uma conta?' : 'Já tem uma conta?'}
+                                {isLogin ? "Não tem uma conta?" : "Já tem uma conta?"}
                                 <button
                                     type="button"
                                     onClick={() => setIsLogin(!isLogin)}
                                     className="ml-2 text-indigo-600 hover:text-indigo-800 font-bold"
                                 >
-                                    {isLogin ? 'Cadastre-se' : 'Fazer Login'}
+                                    {isLogin ? "Cadastre-se" : "Fazer Login"}
                                 </button>
                             </p>
                         </div>
