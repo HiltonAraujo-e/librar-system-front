@@ -3,12 +3,14 @@
     "development"
   ],
   "hints": {
-    "axe/name-role-value": [
+    "axe/forms": "off",
+    "no-inline-styles": "off",
+    "axe/parsing": [
       "default",
       {
-        "button-name": "off"
+        "duplicate-id-active": "off"
       }
     ],
-    "no-inline-styles": "off"
+    "axe/name-role-value": "off"
   }
 }

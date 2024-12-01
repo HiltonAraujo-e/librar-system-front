@@ -3,6 +3,23 @@
 import React, { useState } from "react";
 import { User, Lock, Mail, EyeOff, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { setAuthToken } from "@/data/client/token.utils";
+import { jwtDecode } from "jwt-decode";
+import { useGet, usePost } from "@/data/hooks";
+import { API_ENDPOINTS } from "@/data/client/endpoints";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+type DecodedToken = {
+    sub: string;
+    exp: number;
+    role: string;
+};
+
+type LoginInput = {
+    username: string;
+    password: string;
+};
 
 const LoginPage = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -43,6 +60,44 @@ const LoginPage = () => {
         }
     };
 
+    const handleSuccess = (data: any) => {
+        setAuthToken(data?.data.token);
+        console.log("token", data?.data.token);
+        router?.push("/");
+        const decoded: DecodedToken = jwtDecode(data?.data.token);
+    };
+
+    const handleError = () => { };
+
+    const { post, isPending } = usePost({
+        endpoint: API_ENDPOINTS.LOGIN,
+        successAction: (data: any) => {
+            handleSuccess(data);
+        },
+        errorAction: (error: any) => {
+            handleError();
+        },
+    });
+
+    const loginInput: LoginInput = {
+        username: "",
+        password: "",
+    };
+
+    const formik = useFormik({
+        initialValues: loginInput,
+        validationSchema: Yup.object({
+            username: Yup.string().required("Required"),
+            password: Yup.string().required("Required"),
+        }),
+        onSubmit: (values, { setSubmitting }) => {
+            post(values);
+            setSubmitting(false);
+        },
+    });
+
+
+
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
             <div className="w-full max-w-md">
@@ -58,7 +113,7 @@ const LoginPage = () => {
                         </p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="p-8 space-y-6">
+                    <form onSubmit={formik.handleSubmit} className="p-8 space-y-6">
                         {!isLogin && (
                             <div className="relative">
                                 <label className="block mb-2 text-gray-600">Nome Completo</label>
@@ -66,6 +121,7 @@ const LoginPage = () => {
                                     <User className="ml-3 text-gray-500" />
                                     <input
                                         type="text"
+                                        {...formik.getFieldProps("name")}
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                         placeholder="Digite seu nome"
@@ -82,8 +138,12 @@ const LoginPage = () => {
                                 <Mail className="ml-3 text-gray-500" />
                                 <input
                                     type="email"
+                                    {...formik.getFieldProps("username")}
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => {
+                                        formik.setFieldValue("username", e.target.value);
+                                        setEmail(e.target.value)
+                                    }}
                                     placeholder="Digite seu email"
                                     required
                                     className="w-full p-3 pl-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -97,8 +157,12 @@ const LoginPage = () => {
                                 <Lock className="ml-3 text-gray-500" />
                                 <input
                                     type={showPassword ? "text" : "password"}
+                                    {...formik.getFieldProps("password")}
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                        formik.setFieldValue("password", e.target.value);
+                                    }}
                                     placeholder="Digite sua senha"
                                     required
                                     className="w-full p-3 pl-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
