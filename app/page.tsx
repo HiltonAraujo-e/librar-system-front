@@ -4,12 +4,14 @@ import FeaturedBooks from '@/components/featuredBooks';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import SearchSection from '@/components/searchSection';
-import React, { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { FC, useEffect, useState } from 'react';
 import BooksCard from '@/components/books';
 import { allBooks, bookImages, featuredBooks } from '@/mockData';
+import { useGet } from '@/data/hooks';
+import { API_ENDPOINTS } from '@/data/client/endpoints';
+import { Pagination } from '@/components/pagination';
 
-const LibraryHomePage = () => {
+const LibraryHomePage: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,8 +33,12 @@ const LibraryHomePage = () => {
     setCurrentPage(newPage);
   };
 
+  const { data } = useGet({
+    endpoint: API_ENDPOINTS.GET_BOOKS
+  })
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <SearchSection
         searchQuery={searchQuery}
@@ -45,32 +51,16 @@ const LibraryHomePage = () => {
         <FeaturedBooks featuredBooks={featuredBooks} />
       </section>
 
-      {/* Listagem de Livros */}
       <section className="container mx-auto px-4 py-12">
         <h2 className="text-3xl font-semibold text-center mb-8">Todos os Livros</h2>
 
-        <BooksCard />
+        <BooksCard books={data?.data} />
 
-        {/* Paginação */}
-        <div className="flex justify-center items-center mt-8 space-x-4">
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-full disabled:opacity-50 hover:bg-indigo-700 transition"
-          >
-            <ChevronLeft className="mr-2" /> Anterior
-          </button>
-          <span className="text-gray-700">
-            Página {currentPage} de {totalPages}
-          </span>
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-full disabled:opacity-50 hover:bg-indigo-700 transition"
-          >
-            Próxima <ChevronRight className="ml-2" />
-          </button>
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </section>
 
 

@@ -5,10 +5,13 @@ import { User, Lock, Mail, EyeOff, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { setAuthToken } from "@/data/client/token.utils";
 import { jwtDecode } from "jwt-decode";
-import { useGet, usePost } from "@/data/hooks";
+import { usePost } from "@/data/hooks";
 import { API_ENDPOINTS } from "@/data/client/endpoints";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Cookies from "js-cookie";
+import { useAtom } from "jotai";
+import { onlineUser } from "@/atom/application-atom";
 
 type DecodedToken = {
     sub: string;
@@ -22,6 +25,7 @@ type LoginInput = {
 };
 
 const LoginPage = () => {
+    const [_, setOnlineUser] = useAtom(onlineUser);
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -30,41 +34,12 @@ const LoginPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const router = useRouter();
 
-    const authenticateUser = async (email: string, password: string) => {
-        if (email === "admin@example.com" && password === "admin123") {
-            return { role: "admin" };
-        } else if (email === "user@example.com" && password === "user123") {
-            return { role: "user" };
-        }
-        return null;
-    };
-
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-
-        if (isLogin) {
-            const user = await authenticateUser(email, password);
-            if (user) {
-                if (user.role === "admin") {
-                    router.push("/library/admin");
-                } else {
-                    router.push("/library/user");
-                }
-            } else {
-                return;
-            }
-        } else {
-            if (password !== confirmPassword) {
-                return;
-            }
-        }
-    };
-
     const handleSuccess = (data: any) => {
         setAuthToken(data?.data.token);
-        console.log("token", data?.data.token);
-        router?.push("/");
         const decoded: DecodedToken = jwtDecode(data?.data.token);
+        setOnlineUser(decoded.sub);
+        router.push(`/library/book/be93e090-16c0-47b9-85a7-60a509f7b3d1`);
+        Cookies.set("isLoggedIn", "true");
     };
 
     const handleError = () => { };

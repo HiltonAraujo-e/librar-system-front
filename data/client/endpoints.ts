@@ -4,5 +4,8 @@ export const API_ENDPOINTS = {
     logout: "/auth/logout",
     me: "/auth/me",
     allBooks: "/books",
-    GET_BOOKS: "/books",
+    GET_BOOKS: "/book",
+
+    // GET PARAMETERS
+    GET_BOOK_DETAILS: (id: string) => `/book/${id}`,
 }
