@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { useAtom } from 'jotai';
 import { onlineUser } from '@/atom/application-atom';
+import { useAuth } from '@/contexts/authContext';
 
 interface NavbarLinksProps {
     isMobile: boolean;
@@ -11,17 +12,17 @@ interface NavbarLinksProps {
 
 const NavbarLinks: React.FC<NavbarLinksProps> = ({ isMobile }) => {
     const navigate = useRouter();
-    const token = Cookies.get('isLoggedIn');
-    const [userOnline] = useAtom(onlineUser);
-    const user = userOnline ? userOnline : '';
-    console.log("userOnline", userOnline);
-    console.log("user", user);
+    // const token = Cookies.get('isLoggedIn');
+    // const [userOnline] = useAtom(onlineUser);
+    // const user = userOnline ? userOnline : '';
+    const { user, logout } = useAuth()
 
     const handleLogout = () => {
         Cookies.remove('isLoggedIn');
         Cookies.remove('username');
 
     };
+    console.log("user", user);
 
     return (
         <div className={isMobile ? 'flex flex-col p-4 space-y-3' : 'hidden md:flex space-x-6'}>
@@ -30,7 +31,8 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ isMobile }) => {
             </a>
             <a href="#about" className="hover:text-indigo-200 transition flex items-center">Sobre</a>
             <a href="#contact" className="hover:text-indigo-200 transition flex items-center">Contato</a>
-            {token ? (
+            <a href="#contact" className="hover:text-indigo-200 transition flex items-center">Admin</a>
+            {user ? (
                 <div className="flex items-center space-x-3">
                     <span className="text-green-600 font-medium">
                         {user}

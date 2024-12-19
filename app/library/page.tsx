@@ -46,7 +46,7 @@ const LibraryHomePage = () => {
             <section className="container mx-auto px-4 py-12">
                 <h2 className="text-3xl font-semibold text-center mb-8">Todos os Livros</h2>
 
-                <BooksCard />
+                <BooksCard books={[]} />
 
                 <div className="flex justify-center items-center mt-8 space-x-4">
                     <button

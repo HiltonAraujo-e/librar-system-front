@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import FeaturedBooks from '@/components/featuredBooks';
-import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import SearchSection from '@/components/searchSection';
 import React, { FC, useEffect, useState } from 'react';
@@ -12,7 +11,6 @@ import { API_ENDPOINTS } from '@/data/client/endpoints';
 import { Pagination } from '@/components/pagination';
 
 const LibraryHomePage: FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -39,20 +37,19 @@ const LibraryHomePage: FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <SearchSection
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         bookImages={bookImages}
         currentIndex={currentIndex}
       />
-      <section className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl font-semibold text-center mb-8">Livros em Destaque</h2>
+      <section className="container mx-auto px-4 py-8">
+        <h2 className="text-3xl font-semibold text-center mb-4">Livros em Destaque</h2>
         <FeaturedBooks featuredBooks={featuredBooks} />
       </section>
 
-      <section className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl font-semibold text-center mb-8">Todos os Livros</h2>
+      <section className="container mx-auto px-4 py-2 mb-8">
+        <h2 className="text-3xl font-semibold text-center mb-2">Todos os Livros</h2>
 
         <BooksCard books={data?.data} />
 
@@ -62,9 +59,6 @@ const LibraryHomePage: FC = () => {
           onPageChange={handlePageChange}
         />
       </section>
-
-
-      <Footer />
     </div>
   );
 };

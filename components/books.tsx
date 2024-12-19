@@ -42,9 +42,14 @@ const BooksCard: React.FC<Props> = ({ books }) => {
                                     ({book.rating})
                                 </span>
                             </div>
-                            <button onClick={() => handleBookDetails(book)} className="w-full bg-indigo-600 text-white py-2 rounded-full hover:bg-indigo-700 transition">
-                                Ver Detalhes
-                            </button>
+                            <div className='w-full flex justify-between gap-4'>
+                                <button onClick={() => handleBookDetails(book)} className="w-full bg-indigo-600 text-white py-2 rounded-full hover:bg-indigo-700 transition">
+                                    Ver Detalhes
+                                </button>
+                                <button className="w-full bg-indigo-600 text-white py-2 rounded-full hover:bg-indigo-700 transition">
+                                    Adicionar ao carrinho
+                                </button>
+                            </div>
                         </div>
                     </div>
                 ))}

@@ -64,9 +64,14 @@ const FeaturedBooks: React.FC<FeaturedBooksProps> = ({ featuredBooks }) => (
                 </span>
               )}
             </div>
-            <button className="w-full bg-indigo-600 text-white py-2 rounded-full hover:bg-indigo-700 transition">
-              Ver Detalhes
-            </button>
+            <div className='w-full flex justify-between gap-4'>
+              <button className="w-full bg-indigo-600 text-white py-2 rounded-full hover:bg-indigo-700 transition">
+                Ver Detalhes
+              </button>
+              <button className="w-full bg-indigo-600 text-white py-2 rounded-full hover:bg-indigo-700 transition">
+                Ver Detalhes
+              </button>
+            </div>
           </div>
         </div>
       ))}
