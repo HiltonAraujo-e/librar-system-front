@@ -1,9 +1,10 @@
 import axios, { AxiosInstance } from "axios";
 import { getAuthToken } from "./token.utils";
-import { ConfigValue } from "@/config";
+// import { ConfigValue } from "@/config";
 
 const Axios: AxiosInstance = axios.create({
-    baseURL: ConfigValue.API_BASE_URL,
+    // baseURL: ConfigValue.API_BASE_URL,
+    baseURL: "",
     timeout: 150000000,
     headers: {
         "Content-Type": "application/json",

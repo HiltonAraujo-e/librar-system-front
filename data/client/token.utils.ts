@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ConfigValue } from '@/config';
+// import { ConfigValue } from '@/config';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 
-export const AUTH_TOKEN_KEY = ConfigValue.AUTH_TOKEN_KEY || 'default_auth_token';
+// export const AUTH_TOKEN_KEY = ConfigValue.AUTH_TOKEN_KEY || 'default_auth_token';
+export const AUTH_TOKEN_KEY = 'default_auth_token';
 
 type DecodedToken = {
     sub: string;
