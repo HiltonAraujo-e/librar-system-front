@@ -7,6 +7,8 @@ import { AuthProvider } from "@/contexts/authContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SidebarProvider, SidebarRail, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/appSidebar";
+import { AppHeader } from "@/components/appHeader";
+import { Footer } from "@/components/footer";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -36,23 +38,24 @@ export default function RootLayout({
                     <MantineProvider>
                         <AuthProvider>
                             <SidebarProvider defaultOpen={!isMobile}>
-                                <div className="flex h-screen w-full bg-muted/20">
+                                <div className="flex h-full w-full bg-muted/20">
                                     <AppSidebar />
                                     <div className="flex flex-col flex-1">
-                                        <div className="sticky top-0 z-50 w-full p-2 bg-background/80 backdrop-blur border-b">
+                                        <div className="sticky top-0 z-50 w-full p-3.5 bg-background/80 backdrop-blur border-b">
                                             <div className="flex items-center">
-                                                <SidebarTrigger className="ml-2" />
+                                                <SidebarTrigger />
                                                 <div className="flex-1">
-                                                    {/* <Header /> */}
+                                                    <AppHeader />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex flex-1">
                                             <SidebarRail />
-                                            <SidebarInset className="flex-1 bg-white overflow-auto">
-                                                <main className="container mx-auto py-4 px-4 min-h-[calc(100vh-140px)]">
+                                            <SidebarInset className="flex-1 bg-white overflow-auto overflow-x-auto">
+                                                <main className="container mx-auto p-4 min-h-[calc(100vh-140px)]">
                                                     {children}
                                                 </main>
+                                                <Footer />
                                                 {isMobile && <div className="h-16" />}
                                             </SidebarInset>
                                         </div>

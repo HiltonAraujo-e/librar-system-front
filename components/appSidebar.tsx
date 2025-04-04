@@ -2,160 +2,160 @@
 // import { Link, useLocation } from "react-router-dom";
 // import { useAuth } from "@/contexts/AuthContext";
 import {
-    Home,
-    BookOpen,
-    Search,
-    Heart,
-    User,
-    LogOut,
-    BookMarked,
-    Layers,
-    Award,
-    LogIn,
-    Clock,
-    BookIcon,
-    HelpCircle,
-    Bell,
-    BarChart2,
-    Settings
+  Home,
+  BookOpen,
+  Search,
+  Heart,
+  User,
+  LogOut,
+  BookMarked,
+  Layers,
+  Award,
+  LogIn,
+  Clock,
+  BookIcon,
+  HelpCircle,
+  Bell,
+  BarChart2,
+  Settings
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 // import { toast } from "sonner";
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarSeparator,
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 // import { toast } from "./ui/use-toast";
 import Link from "next/link";
 
 export function AppSidebar() {
-    //   const { user, isAuthenticated, logout } = useAuth();
-    //   const location = useLocation();
+  //   const { user, isAuthenticated, logout } = useAuth();
+  //   const location = useLocation();
 
-    // const handleLogout = () => {
-    //     logout();
-    //     toast.success("Logged out successfully");
-    // };
+  // const handleLogout = () => {
+  //     logout();
+  //     toast.success("Logged out successfully");
+  // };
 
-    // Common menu items for all users
-    const commonMenuItems = [
-        {
-            title: "Home",
-            url: "/",
-            icon: Home,
-        },
-        {
-            title: "Search",
-            url: "/search",
-            icon: Search,
-        },
-        {
-            title: "Categories",
-            url: "/categories",
-            icon: Layers,
-        },
-        {
-            title: "New Releases",
-            url: "/new-releases",
-            icon: BookOpen,
-        },
-        {
-            title: "Top Rated",
-            url: "/top-rated",
-            icon: Award,
-        },
-    ];
+  // Common menu items for all users
+  const commonMenuItems = [
+    {
+      title: "Home",
+      url: "/",
+      icon: Home,
+    },
+    {
+      title: "Search",
+      url: "/search",
+      icon: Search,
+    },
+    {
+      title: "Categories",
+      url: "/categories",
+      icon: Layers,
+    },
+    {
+      title: "New Releases",
+      url: "/new-releases",
+      icon: BookOpen,
+    },
+    {
+      title: "Top Rated",
+      url: "/top-rated",
+      icon: Award,
+    },
+  ];
 
-    // Menu items for authenticated users only
-    const authenticatedMenuItems = [
-        {
-            title: "My Library",
-            url: "/my-library",
-            icon: BookMarked,
-        },
-        {
-            title: "Favorites",
-            url: "/favorites",
-            icon: Heart,
-        },
-        {
-            title: "Reading History",
-            url: "/reading-history",
-            icon: Clock,
-        },
-        {
-            title: "My Loans",
-            url: "/loans",
-            icon: BookIcon,
-        },
-        {
-            title: "Notifications",
-            url: "/notifications",
-            icon: Bell,
-        },
-        {
-            title: "Statistics",
-            url: "/statistics",
-            icon: BarChart2,
-        },
-    ];
+  // Menu items for authenticated users only
+  const authenticatedMenuItems = [
+    {
+      title: "My Library",
+      url: "/my-library",
+      icon: BookMarked,
+    },
+    {
+      title: "Favorites",
+      url: "/favorites",
+      icon: Heart,
+    },
+    {
+      title: "Reading History",
+      url: "/reading-history",
+      icon: Clock,
+    },
+    {
+      title: "My Loans",
+      url: "/loans",
+      icon: BookIcon,
+    },
+    {
+      title: "Notifications",
+      url: "/notifications",
+      icon: Bell,
+    },
+    {
+      title: "Statistics",
+      url: "/statistics",
+      icon: BarChart2,
+    },
+  ];
 
-    // Support and help items
-    const supportItems = [
-        {
-            title: "Help & FAQs",
-            url: "/help",
-            icon: HelpCircle,
-        },
-        {
-            title: "Settings",
-            url: "/settings",
-            icon: Settings,
-        },
-    ];
-    // rounded-r-lg
-    return (
-        <Sidebar variant="sidebar">
-            <SidebarHeader className="flex items-center gap-2 px-4 py-3 bg-primary text-primary-foreground">
-                <BookOpen className="h-6 w-6" />
-                <span className="font-heading font-semibold text-xl">BookWorm</span>
-            </SidebarHeader>
+  // Support and help items
+  const supportItems = [
+    {
+      title: "Help & FAQs",
+      url: "/help",
+      icon: HelpCircle,
+    },
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
+    },
+  ];
+  // rounded-r-lg
+  return (
+    <Sidebar variant="sidebar">
+      <SidebarHeader className="flex items-center gap-2 px-4 py-3 bg-primary text-primary-foreground">
+        <BookOpen className="h-6 w-6" />
+        <span className="font-heading font-semibold text-xl">BookWorm</span>
+      </SidebarHeader>
 
-            <SidebarContent>
-                <SidebarGroup>
-                    <SidebarGroupLabel className="text-muted-foreground">Navigation</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {commonMenuItems.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton
-                                        asChild
-                                        isActive={location.pathname === item.url}
-                                        tooltip={item.title}
-                                    >
-                                        <Link href={item.url}>
-                                            <item.icon />
-                                            <span>{item.title}</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-muted-foreground">Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {commonMenuItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location.pathname === item.url}
+                    tooltip={item.title}
+                  >
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
 
-                <SidebarSeparator />
+        <SidebarSeparator />
 
-                {/* {isAuthenticated && (
+        {/* {isAuthenticated && (
           <>
             <SidebarGroup>
               <SidebarGroupLabel className="text-muted-foreground">Personal</SidebarGroupLabel>
@@ -182,34 +182,34 @@ export function AppSidebar() {
           </>
         )} */}
 
-                <SidebarGroup>
-                    <SidebarGroupLabel className="text-muted-foreground">Support</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {supportItems.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton
-                                        asChild
-                                        isActive={location.pathname === item.url}
-                                        tooltip={item.title}
-                                    >
-                                        <Link href={item.url}>
-                                            <item.icon />
-                                            <span>{item.title}</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-            </SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-muted-foreground">Support</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {supportItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location.pathname === item.url}
+                    tooltip={item.title}
+                  >
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
 
-            <SidebarFooter className="border-t pt-2">
-                <SidebarGroup>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {/* {isAuthenticated ? (
+      <SidebarFooter className="border-t pt-2">
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {/* {isAuthenticated ? (
                 <>
                   <SidebarMenuItem>
                     <SidebarMenuButton 
@@ -250,10 +250,22 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               )} */}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-            </SidebarFooter>
-        </Sidebar>
-    );
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  tooltip="Login / Sign Up"
+                  className="text-primary"
+                >
+                  <Link href="/profile">
+                    <LogIn />
+                    <span>Login / Sign Up</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarFooter>
+    </Sidebar>
+  );
 }
