@@ -13,6 +13,7 @@ import {
 } from "./services/bookService";
 import Link from "next/link";
 import { BookCarousel } from "@/components/books/BookCarousel";
+import { FeaturedBanner } from "@/components/home/featuredBanner";
 
 const Index = () => {
     const [featuredBooks, setFeaturedBooks] = useState<Book[]>([]);
@@ -70,9 +71,9 @@ const Index = () => {
 
     return (
         <div className="space-y-6">
-            {/* {featuredBooks.length > 0 && (
+            {featuredBooks.length > 0 && (
                 <FeaturedBanner books={featuredBooks} />
-            )} */}
+            )}
 
             <div className="space-y-6">
                 <BookCarousel
