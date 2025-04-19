@@ -17,25 +17,25 @@ export function Footer() {
                             <span className="text-xs">Home</span>
                         </Button>
                     </Link>
-                    <Link href="/search">
+                    <Link href="library/search">
                         <Button variant="ghost" size="icon" className="flex flex-col gap-1 h-auto py-2">
                             <BookOpen className="h-5 w-5" />
                             <span className="text-xs">Search</span>
                         </Button>
                     </Link>
-                    <Link href="/favorites">
+                    <Link href="library/favorites">
                         <Button variant="ghost" size="icon" className="flex flex-col gap-1 h-auto py-2">
                             <Heart className="h-5 w-5" />
                             <span className="text-xs">Favorites</span>
                         </Button>
                     </Link>
-                    <Link href="/my-library">
+                    <Link href="library/my-library">
                         <Button variant="ghost" size="icon" className="flex flex-col gap-1 h-auto py-2">
                             <BookMarked className="h-5 w-5" />
                             <span className="text-xs">Library</span>
                         </Button>
                     </Link>
-                    <Link href="/profile">
+                    <Link href="library/profile">
                         <Button variant="ghost" size="icon" className="flex flex-col gap-1 h-auto py-2">
                             <User className="h-5 w-5" />
                             <span className="text-xs">Profile</span>
@@ -62,31 +62,31 @@ export function Footer() {
                 <div>
                     <h4 className="font-heading font-medium text-base mb-4">Explore</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><Link href="/categories" className="hover:text-primary transition-colors">Categories</Link></li>
-                        <li><Link href="/new-releases" className="hover:text-primary transition-colors">New Releases</Link></li>
-                        <li><Link href="/top-rated" className="hover:text-primary transition-colors">Top Rated</Link></li>
-                        <li><Link href="/search" className="hover:text-primary transition-colors">Search</Link></li>
+                        <li><Link href="library/categories" className="hover:text-primary transition-colors">Categories</Link></li>
+                        <li><Link href="library/new-releases" className="hover:text-primary transition-colors">New Releases</Link></li>
+                        <li><Link href="library/top-rated" className="hover:text-primary transition-colors">Top Rated</Link></li>
+                        <li><Link href="library/search" className="hover:text-primary transition-colors">Search</Link></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 className="font-heading font-medium text-base mb-4">Account</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><Link href="/profile" className="hover:text-primary transition-colors">Profile</Link></li>
-                        <li><Link href="/my-library" className="hover:text-primary transition-colors">My Library</Link></li>
-                        <li><Link href="/favorites" className="hover:text-primary transition-colors">Favorites</Link></li>
-                        <li><Link href="/reading-history" className="hover:text-primary transition-colors">Reading History</Link></li>
+                        <li><Link href="library/profile" className="hover:text-primary transition-colors">Profile</Link></li>
+                        <li><Link href="library/my-library" className="hover:text-primary transition-colors">My Library</Link></li>
+                        <li><Link href="library/favorites" className="hover:text-primary transition-colors">Favorites</Link></li>
+                        <li><Link href="library/reading-history" className="hover:text-primary transition-colors">Reading History</Link></li>
                         <li><Link href="/loans" className="hover:text-primary transition-colors">My Loans</Link></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 className="font-heading font-medium text-base mb-4">Support</h4>
+                    <h4 className="font-heading font-medium text-base` mb-4">Support</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><Link href="/help" className="hover:text-primary transition-colors">Help Center</Link></li>
-                        <li><Link href="/settings" className="hover:text-primary transition-colors">Settings</Link></li>
-                        <li><Link href="/help" className="hover:text-primary transition-colors">Terms of Service</Link></li>
-                        <li><Link href="/help" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+                        <li><Link href="library/help" className="hover:text-primary transition-colors">Help Center</Link></li>
+                        <li><Link href="library/settings" className="hover:text-primary transition-colors">Settings</Link></li>
+                        <li><Link href="library/help" className="hover:text-primary transition-colors">Terms of Service</Link></li>
+                        <li><Link href="library/help" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
                     </ul>
                 </div>
             </div>
