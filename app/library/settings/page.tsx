@@ -1,4 +1,4 @@
-
+"use client"
 import { useState } from "react";
 import { Settings as SettingsIcon, LogIn, Bell, Eye, Moon, Sun, Globe, Shield, Lock, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";

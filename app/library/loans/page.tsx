@@ -1,4 +1,4 @@
-
+"use client"
 import { useEffect, useState } from "react";
 import { BookCard } from "@/components/books/BookCard";
 import { Button } from "@/components/ui/button";
@@ -379,8 +379,8 @@ export default function LoansPage() {
                                                         <p className="text-sm text-muted-foreground">{book.author}</p>
                                                     </div>
                                                     <div className={`px-2 py-1 rounded text-xs font-medium ${reservation.status === 'available'
-                                                            ? 'bg-success text-success-foreground'
-                                                            : 'bg-muted text-muted-foreground'
+                                                        ? 'bg-success text-success-foreground'
+                                                        : 'bg-muted text-muted-foreground'
                                                         }`}>
                                                         {reservation.status === 'available' ? 'Available now' : 'Waiting'}
                                                     </div>

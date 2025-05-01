@@ -1,4 +1,4 @@
-
+"use client"
 import { useState } from "react";
 import { HelpCircle, MessageCircle, Search, Book, BookOpen, Heart, Calendar, User, Settings, ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";

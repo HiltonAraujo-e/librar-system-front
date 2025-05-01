@@ -1,4 +1,4 @@
-
+"use client"
 import { useState, useEffect } from "react";
 import { BookGrid } from "@/components/books/BookGrid";
 import { Award, Star } from "lucide-react";
