@@ -16,6 +16,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useGet } from "@/data/hooks";
+import { API_ENDPOINTS } from "@/data/client/endpoints";
 
 const BookDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -26,17 +28,22 @@ const BookDetails = () => {
         window.scrollTo(0, 0);
     }, [id]);
 
-    const { data: book, isLoading, refetch } = useQuery({
-        queryKey: ["book", id],
-        queryFn: () => getBookById(id || ""),
-        enabled: !!id,
-    });
+    // const { data: book, isLoading, refetch } = useQuery({
+    //     queryKey: ["book", id],
+    //     queryFn: () => getBookById(id || ""),
+    //     enabled: !!id,
+    // });
 
-    const { data: relatedBooks = [] } = useQuery({
-        queryKey: ["relatedBooks", book?.genres[0]],
-        queryFn: () => getBooksByCategory(book?.genres[0] || ""),
-        enabled: !!book,
-    });
+    const { data: bookData, isLoading } = useGet({
+        endpoint: API_ENDPOINTS.GET_BOOK_DETAILS(id),
+    })
+    const book = bookData?.data;
+
+    // const { data: relatedBooks = [] } = useQuery({
+    //     queryKey: ["relatedBooks", book?.genres[0]],
+    //     queryFn: () => getBooksByCategory(book?.genres[0] || ""),
+    //     enabled: !!book,
+    // });
 
     const handleRateBook = async (rating: number) => {
 
@@ -78,9 +85,9 @@ const BookDetails = () => {
     }
 
     // Filter out the current book from related books
-    const filteredRelatedBooks = relatedBooks.filter(
-        (relatedBook) => relatedBook.id !== book.id
-    ).slice(0, 8);
+    // const filteredRelatedBooks = relatedBooks.filter(
+    //     (relatedBook) => relatedBook.id !== book.id
+    // ).slice(0, 8);
 
     return (
         <div className="container">
@@ -167,7 +174,7 @@ const BookDetails = () => {
 
                     {/* Genres/categories */}
                     <div className="mt-4 flex flex-wrap gap-2">
-                        {book.genres.map((genre) => (
+                        {book?.genres?.map((genre) => (
                             <Link key={genre} href={`/categories/${genre}`}>
                                 <Badge variant="secondary" className="hover:bg-secondary/80">
                                     {genre}
@@ -224,11 +231,11 @@ const BookDetails = () => {
                     </div>
 
                     {/* Reviews section */}
-                    {book.reviews && book.reviews.length > 0 && (
+                    {book?.reviews && book.reviews.length > 0 && (
                         <div className="mt-8">
                             <h3 className="font-medium mb-4">Reviews ({book.reviews.length})</h3>
                             <div className="space-y-4">
-                                {book.reviews.map((review) => (
+                                {book?.reviews?.map((review) => (
                                     <div key={review.id} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                                         <div className="flex items-center justify-between mb-2">
                                             <div className="flex items-center gap-2">
@@ -262,14 +269,14 @@ const BookDetails = () => {
             </div>
 
             {/* Related books */}
-            {filteredRelatedBooks.length > 0 && (
-                <div className="mt-12">
-                    {/* <BookCarousel 
+            {/* {filteredRelatedBooks.length > 0 && (
+                <div className="mt-12"> */}
+            {/* <BookCarousel 
             books={filteredRelatedBooks} 
             title="Related Books" 
           /> */}
-                </div>
-            )}
+            {/* </div>
+            )} */}
         </div>
     );
 };
