@@ -55,23 +55,53 @@ export function AppSidebar() {
     },
     {
       title: "Search",
-      url: "/search",
+      url: "/library/search",
       icon: Search,
     },
     {
       title: "Categories",
-      url: "/categories",
+      url: "/library/categories",
       icon: Layers,
     },
     {
       title: "New Releases",
-      url: "/new-releases",
+      url: "/library/new-releases",
       icon: BookOpen,
     },
     {
       title: "Top Rated",
-      url: "/top-rated",
+      url: "/library/top-rated",
       icon: Award,
+    },
+    {
+      title: "My Library",
+      url: "/library/my-library",
+      icon: BookMarked,
+    },
+    {
+      title: "Favorites",
+      url: "/library/favorites",
+      icon: Heart,
+    },
+    {
+      title: "Reading History",
+      url: "/library/reading-history",
+      icon: Clock,
+    },
+    {
+      title: "My Loans",
+      url: "/library/loans",
+      icon: BookIcon,
+    },
+    {
+      title: "Notifications",
+      url: "/library/notifications",
+      icon: Bell,
+    },
+    {
+      title: "Statistics",
+      url: "/library/statistics",
+      icon: BarChart2,
     },
   ];
 
